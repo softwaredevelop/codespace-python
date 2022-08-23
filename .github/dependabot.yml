@@ -1,0 +1,22 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "00:00"
+      timezone: "Europe/Berlin"
+    labels:
+      - "github-actions dependencies"
+
+  - package-ecosystem: "docker"
+    directory: ".devcontainer/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "00:00"
+      timezone: "Europe/Berlin"
+    labels:
+      - "docker dependencies"
