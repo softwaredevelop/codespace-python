@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 SHELLCHECK_VERSION=${1:-"0.8.0"}
 CONTAINER_OS=${2:-"alpine"}
 SCRIPT=("${BASH_SOURCE[@]}")
