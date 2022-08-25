@@ -15,7 +15,9 @@
 	// Configure properties specific to VS Code.
 		"vscode": {
 			"settings": {},
-			"extensions": []
+			"extensions": [
+				"ms-python.python"
+			]
 			// "devPort": {}
 		}
 	},
