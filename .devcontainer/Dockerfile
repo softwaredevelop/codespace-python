@@ -20,8 +20,8 @@ RUN \
     bash /tmp/scripts/shellcheck-debian.sh "0.8.0"; \
     bash /tmp/scripts/editorconfig-debian.sh "2.5.0"; \
     bash /tmp/scripts/trivy.sh "0.30.4" "debian"; \
-    bash /tmp/scripts/python-debian.sh; \
-    bash /tmp/scripts/setup-python-tools.sh; \
+    bash /tmp/scripts/python-debian.sh "system"; \
+    bash /tmp/scripts/setup-python-tools.sh "/usr/bin/python3"; \
     apt-get autoremove; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/scripts
