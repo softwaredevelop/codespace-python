@@ -12,9 +12,9 @@ INSTALL_PYTHON_TOOLS=${6:-"true"}
 DEFAULT_UTILS=(
   "autopep8"
   "bandit"
-  "black"
+  # "black"
   "flake8"
-  "isort"
+  # "isort"
   "mypy"
   "pycodestyle"
   "pydocstyle"
