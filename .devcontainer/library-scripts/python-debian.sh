@@ -2,10 +2,27 @@
 
 set -e
 
-PYTHON_VERSION=${1:-"latest"} # 'system' checks the base image first, else installs 'latest'
+PYTHON_VERSION=${1:-"latest"} # "system" else "latest"
 USERNAME=${2:-"automatic"}
 PYTHON_INSTALL_PATH=${3:-"/usr/local/python"}
 UPDATE_RC=${4:-"true"}
+export PIPX_HOME=${5:-"/usr/local/python"} # "/usr/local/py-utils"
+INSTALL_PYTHON_TOOLS=${6:-"true"}
+
+DEFAULT_UTILS=(
+  "autopep8"
+  "bandit"
+  "black"
+  "flake8"
+  "isort"
+  "mypy"
+  "pycodestyle"
+  "pydocstyle"
+  "pylint"
+  "pytest"
+  "twine"
+  "yapf"
+)
 
 if [ "$(id -u)" -ne 0 ]; then
   echo -e 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
@@ -168,3 +185,48 @@ if [ "${PYTHON_VERSION}" != "none" ]; then
   fi
   updaterc "if [[ \"\${PATH}\" != *\"${PYTHON_INSTALL_PATH}/bin\"* ]]; then export PATH=${PYTHON_INSTALL_PATH}/bin:\${PATH}; fi"
 fi
+
+if [ "${INSTALL_PYTHON_TOOLS}" != "true" ]; then
+  exit 0
+fi
+
+export PIPX_BIN_DIR="${PIPX_HOME}/bin"
+export PATH="${PYTHON_INSTALL_PATH}/bin:${PIPX_BIN_DIR}:${PATH}"
+
+if ! grep -e '^pipx:' </etc/group >/dev/null 2>&1; then
+  groupadd --system pipx
+fi
+usermod --append --groups pipx ${USERNAME}
+umask 0002
+mkdir --parents ${PIPX_BIN_DIR}
+chown :pipx ${PIPX_HOME} ${PIPX_BIN_DIR}
+chmod g+s ${PIPX_HOME} ${PIPX_BIN_DIR}
+
+if [ ${PYTHON_VERSION} != "system" ]; then
+  ${PYTHON_INSTALL_PATH}/bin/python3 -m pip install --no-cache-dir --upgrade pip
+fi
+
+export PYTHONUSERBASE=/tmp/pip-tmp
+export PIP_CACHE_DIR=/tmp/pip-tmp/cache
+pipx_path=""
+if ! type pipx >/dev/null 2>&1; then
+  pip3 install --disable-pip-version-check --no-cache-dir --user pipx 2>&1
+  /tmp/pip-tmp/bin/pipx install --pip-args=--no-cache-dir pipx
+  pipx_path=$PYTHONUSERBASE"/bin/"
+fi
+for util in "${DEFAULT_UTILS[@]}"; do
+  if ! type ${util} >/dev/null 2>&1; then
+    ${pipx_path}pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' ${util}
+  else
+    echo "${util} already installed. Skipping."
+  fi
+done
+rm -rf /tmp/pip-tmp
+
+updaterc "$(
+  cat <<EOF
+export PIPX_HOME="${PIPX_HOME}"
+export PIPX_BIN_DIR="${PIPX_BIN_DIR}"
+if [[ "\${PATH}" != *"\${PIPX_BIN_DIR}"* ]]; then export PATH="\${PATH}:\${PIPX_BIN_DIR}"; fi
+EOF
+)"
