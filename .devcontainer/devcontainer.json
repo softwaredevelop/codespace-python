@@ -17,30 +17,30 @@
 			"settings": {
 				"[python]": {
 					"editor.wordBasedSuggestions": false,
-					"editor.defaultFormatter": null,
-					"editor.formatOnPaste": true,
-					"editor.formatOnSave": true
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": true
+					}
 				},
-				// "python.defaultInterpreterPath": "/usr/local/bin/python",
+				"isort.args": ["--profile", "black"],
 				"python.linting.enabled": true,
 				"python.linting.pylintEnabled": true,
 				"python.formatting.autopep8Path": "/usr/local/python/bin/autopep8",
-				"python.formatting.blackPath": "/usr/local/python/bin/black",
+				// "python.formatting.blackPath": "/usr/local/python/bin/black",
 				"python.formatting.yapfPath": "/usr/local/python/bin/yapf",
-				"python.formatting.provider": "black",
+				"python.formatting.provider": "none",
 				"python.linting.banditPath": "/usr/local/python/bin/bandit",
 				"python.linting.flake8Path": "/usr/local/python/bin/flake8",
 				"python.linting.mypyPath": "/usr/local/python/bin/mypy",
 				"python.linting.pycodestylePath": "/usr/local/python/bin/pycodestyle",
 				"python.linting.pydocstylePath": "/usr/local/python/bin/pydocstyle",
-				"python.linting.pylintPath": "/usr/local/python/bin/pylint",
-				"isort.path": [
-					"/usr/local/python/bin/isort"
-				]
+				"python.linting.pylintPath": "/usr/local/python/bin/pylint"
 			},
 			"extensions": [
-				"ms-python.python",
-				"ms-python.isort"
+				"ms-python.black-formatter",
+				"ms-python.isort",
+				"ms-python.python"
 			]
 			// "devPort": {}
 		}
