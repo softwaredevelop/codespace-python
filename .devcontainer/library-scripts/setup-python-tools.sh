@@ -47,3 +47,4 @@ fi
 installPythonPackage "pip" "latest"
 installPythonPackage "setuptools" "latest"
 installPythonPackage "art" "latest"
+installPythonPackage "nox" "latest"
