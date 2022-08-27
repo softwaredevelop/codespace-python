@@ -46,5 +46,6 @@ check "python" python --version
 check "python3" python3 --version
 check "python3 ascii art" python3 -c'from art import *; tprint("Python3")'
 check "python3 file" python3 "$(pwd)"/test.py
+check "pipx directory" [ -d "/usr/local/python/bin" ] && echo "Pipx directory Exists"
 
 reportResults
