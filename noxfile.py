@@ -6,16 +6,17 @@ Nox configuration file.
 """
 import nox
 
-PYTHON_DEFAULT_VERSION = "3.10"
-PYTHON_ALL_VERSIONS = ["3.7", "3.8", "3.9", "3.10"]
 LINT_DEPENDENCIES = [
     "isort",
     "black",
     "flake8",
 ]
+LINT_PATH = [
+    "test",
+]
 
 
-@nox.session(name="isort", python=PYTHON_DEFAULT_VERSION)
+@nox.session(name="isort")
 def isort(session):
     """Run isort code formatter."""
     session.install("isort")
@@ -27,7 +28,7 @@ def isort(session):
     )
 
 
-@nox.session(name="black", python=PYTHON_DEFAULT_VERSION)
+@nox.session(name="black")
 def blacken(session):
     """Run black code formatter."""
     session.install(
@@ -40,7 +41,7 @@ def blacken(session):
     )
 
 
-@nox.session(name="flake8", python=PYTHON_DEFAULT_VERSION)
+@nox.session(name="flake8")
 def flake(session):
     """Run black code formatter."""
     session.install("flake8")
@@ -50,7 +51,7 @@ def flake(session):
     )
 
 
-@nox.session(name="lint", python=PYTHON_ALL_VERSIONS)
+@nox.session(name="lint")
 def lint(session):
     """Run linters."""
     session.install(*LINT_DEPENDENCIES)
@@ -58,15 +59,15 @@ def lint(session):
         "isort",
         "--profile",
         "black",
-        ".",
+        *LINT_PATH,
     )
     session.run(
         "black",
         "--check",
         "--verbose",
-        ".",
+        *LINT_PATH,
     )
     session.run(
         "flake8",
-        ".",
+        *LINT_PATH,
     )
