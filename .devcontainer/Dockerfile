@@ -1,5 +1,5 @@
 ARG VARIANT=latest
-FROM docker.io/library/ubuntu:$VARIANT
+FROM docker.io/library/python:$VARIANT
 
 ARG USERNAME=codespace
 ARG USER_UID=1000
@@ -19,9 +19,8 @@ RUN \
     bash /tmp/scripts/shfmt-debian.sh "3.5.1"; \
     bash /tmp/scripts/shellcheck-debian.sh "0.8.0"; \
     bash /tmp/scripts/editorconfig-debian.sh "2.5.0"; \
-    bash /tmp/scripts/trivy.sh "0.30.4" "debian"; \
-    bash /tmp/scripts/python-debian.sh; \
-    bash /tmp/scripts/setup-python-tools.sh; \
+    bash /tmp/scripts/trivy-debian.sh; \
+    bash /tmp/scripts/setup-python-tools.sh "/usr/local/bin/python" "/usr/local/"; \
     apt-get autoremove; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/scripts
