@@ -4,15 +4,30 @@
 """
 Nox configuration file.
 """
+import os
+
 import nox
+
+
+def get_path(*path):
+    """
+    Return the absolute path of the given path.
+    """
+    return os.path.join(NOX_DIR, *path)
+
+
+NOX_DIR = os.path.abspath(os.path.dirname(__file__))
+
 
 LINT_DEPENDENCIES = [
     "isort",
     "black",
     "flake8",
 ]
+
 LINT_PATH = [
-    "test",
+    get_path("noxfile.py"),
+    get_path("test"),
 ]
 
 
@@ -24,7 +39,7 @@ def isort(session):
         "isort",
         "--profile",
         "black",
-        ".",
+        *LINT_PATH,
     )
 
 
@@ -37,7 +52,7 @@ def blacken(session):
     session.run(
         "black",
         "--check",
-        ".",
+        *LINT_PATH,
     )
 
 
@@ -47,7 +62,7 @@ def flake(session):
     session.install("flake8")
     session.run(
         "flake8",
-        ".",
+        *LINT_PATH,
     )
 
 
