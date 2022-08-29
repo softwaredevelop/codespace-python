@@ -24,6 +24,7 @@
 					}
 				},
 				"isort.args": ["--profile", "black"],
+				"python.defaultInterpreterPath": "python",
 				"python.linting.enabled": true,
 				"python.linting.pylintEnabled": true,
 				"python.formatting.autopep8Path": "/usr/local/pipx/bin/autopep8",
