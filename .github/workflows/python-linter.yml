@@ -47,4 +47,10 @@ jobs:
           python -m pip install nox
       - name: Lint
         run: |
-          nox --error-on-missing-interpreters --non-interactive --session isort black flake8
+          nox \
+          --error-on-missing-interpreters \
+          --non-interactive \
+          --session \
+          isort \
+          black \
+          flake8
