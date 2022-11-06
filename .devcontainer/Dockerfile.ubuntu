@@ -18,7 +18,7 @@ RUN \
     bash /tmp/scripts/hadolint-debian.sh "2.10.0"; \
     bash /tmp/scripts/shfmt-debian.sh "3.5.1"; \
     bash /tmp/scripts/shellcheck-debian.sh "0.8.0"; \
-    bash /tmp/scripts/editorconfig-debian.sh "2.5.0"; \
+    bash /tmp/scripts/editorconfig-debian.sh "2.6.0"; \
     bash /tmp/scripts/trivy-debian.sh; \
     bash /tmp/scripts/python-debian.sh "system"; \
     bash /tmp/scripts/setup-python-tools.sh "/usr/bin/python3"; \
