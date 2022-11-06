@@ -2,7 +2,7 @@
 
 set -e
 
-TRIVY_VERSION=${1:-"0.30.4"}
+TRIVY_VERSION=${1:-"0.34.0"}
 SCRIPT=("${BASH_SOURCE[@]}")
 SCRIPT_PATH="${SCRIPT##*/}"
 SCRIPT_NAME="${SCRIPT_PATH%.*}"
