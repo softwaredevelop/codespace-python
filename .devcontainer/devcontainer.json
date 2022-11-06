@@ -1,5 +1,5 @@
 {
-	"name": "Codespace Default",
+	"name": "Codespace Python",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
