@@ -2,7 +2,7 @@
 
 set -e
 
-EDITORCONFIG_VERSION=${1:-"2.5.0"}
+EDITORCONFIG_VERSION=${1:-"2.6.0"}
 CONTAINER_OS=${2:-"alpine"}
 SCRIPT=("${BASH_SOURCE[@]}")
 SCRIPT_PATH="${SCRIPT##*/}"
