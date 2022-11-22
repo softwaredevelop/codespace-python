@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USERNAME=${1:-codespace}
+USERNAME=${1:-$(id -un)}
 ID_OS=$(grep '^ID=' </etc/os-release | cut -d '=' -f2)
 FAILED_COUNT=0
 
