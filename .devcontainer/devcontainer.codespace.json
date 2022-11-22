@@ -1,0 +1,76 @@
+{
+	"name": "Codespace Python",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"USER_UID": "1000",
+			"USERNAME": "codespace",
+			"VARIANT": "latest"
+			// "VARIANT": "stable-slim"
+		}
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+	// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {
+				"[python]": {
+					"editor.wordBasedSuggestions": false,
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": true
+					}
+				},
+				"isort.args": ["--profile", "black"],
+				"python.defaultInterpreterPath": "python",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.formatting.autopep8Path": "/usr/local/pipx/bin/autopep8",
+				// "python.formatting.blackPath": "/usr/local/pipx/bin/black",
+				"python.formatting.yapfPath": "/usr/local/pipx/bin/yapf",
+				"python.formatting.provider": "none",
+				"python.linting.banditPath": "/usr/local/pipx/bin/bandit",
+				"python.linting.flake8Path": "/usr/local/pipx/bin/flake8",
+				"python.linting.mypyPath": "/usr/local/pipx/bin/mypy",
+				"python.linting.pycodestylePath": "/usr/local/pipx/bin/pycodestyle",
+				"python.linting.pydocstylePath": "/usr/local/pipx/bin/pydocstyle",
+				"python.linting.pylintPath": "/usr/local/pipx/bin/pylint"
+			},
+			"extensions": [
+				"ms-python.black-formatter",
+				"ms-python.isort",
+				"ms-python.python"
+			]
+			// "devPort": {}
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
+	// "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "codespace",
+
+	// "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
+	// "workspaceFolder": "/workspace",
+
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--env-file=.devcontainer/devcontainer.env",
+		"--init",
+		"--privileged",
+		"--security-opt=seccomp=unconfined"
+		// "--name=codespace-default",
+		// "--userns=keep-id",
+	],
+	"containerUser": "codespace",
+	"postCreateCommand": "bash test/test.sh"
+}
