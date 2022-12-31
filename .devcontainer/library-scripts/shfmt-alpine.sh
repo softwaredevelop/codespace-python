@@ -2,7 +2,7 @@
 
 set -e
 
-SHFMT_VERSION=${1:-"3.5.1"}
+SHFMT_VERSION=${1:-"3.6.0"}
 SCRIPT=("${BASH_SOURCE[@]}")
 SCRIPT_PATH="${SCRIPT##*/}"
 SCRIPT_NAME="${SCRIPT_PATH%.*}"
@@ -33,11 +33,11 @@ function shfmt_inst() {
     ARCH=amd64
     ;;
   esac
-  curl -O -L -C - https://github.com/mvdan/sh/releases/download/v$SHFMT_VERSION/shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH" &&
-    mv shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH" /usr/local/bin/shfmt &&
-    chmod +x /usr/local/bin/shfmt &&
-    chown root /usr/local/bin/shfmt &&
-    chgrp root /usr/local/bin/shfmt
+  curl -O -L -C - https://github.com/mvdan/sh/releases/download/v$SHFMT_VERSION/shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH"
+  mv shfmt_v"$SHFMT_VERSION"_"$OS"_"$ARCH" /usr/local/bin/shfmt
+  chmod +x /usr/local/bin/shfmt
+  chown root /usr/local/bin/shfmt
+  chgrp root /usr/local/bin/shfmt
 }
 
 if [ -f "${MARKER_FILE}" ]; then
