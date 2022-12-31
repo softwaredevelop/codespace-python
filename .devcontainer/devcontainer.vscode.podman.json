@@ -1,5 +1,5 @@
 {
-	"name": "Codespace Python",
+	"name": "Remote Python",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
@@ -62,7 +62,7 @@
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
 	"workspaceFolder": "/workspace",
 
-	"runArgs": ["--userns=keep-id", "--name=codespace-python"],
+	"runArgs": ["--userns=keep-id", "--name=remote-python"],
 	"containerUser": "vscode",
 	"postCreateCommand": "bash test/test.sh"
 }
