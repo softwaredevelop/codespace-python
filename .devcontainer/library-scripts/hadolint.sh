@@ -2,7 +2,7 @@
 
 set -e
 
-HADOLINT_VERSION=${1:-"2.10.0"}
+HADOLINT_VERSION=${1:-"2.12.0"}
 CONTAINER_OS=${2:-"alpine"}
 SCRIPT=("${BASH_SOURCE[@]}")
 SCRIPT_PATH="${SCRIPT##*/}"
@@ -42,9 +42,9 @@ function hadolint_inst() {
     ;;
   esac
   ARCH=$(uname -m)
-  curl -O -L -C - https://github.com/hadolint/hadolint/releases/download/v"$HADOLINT_VERSION"/hadolint-$OS-"$ARCH" &&
-    mv hadolint-$OS-"$ARCH" /usr/local/bin/hadolint &&
-    chmod +x /usr/local/bin/hadolint
+  curl -O -L -C - https://github.com/hadolint/hadolint/releases/download/v"$HADOLINT_VERSION"/hadolint-$OS-"$ARCH"
+  mv hadolint-$OS-"$ARCH" /usr/local/bin/hadolint
+  chmod +x /usr/local/bin/hadolint
 }
 
 if [ -f "${MARKER_FILE}" ]; then
