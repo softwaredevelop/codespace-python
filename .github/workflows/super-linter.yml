@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: github/super-linter/slim@v4
+        uses: github/super-linter/slim@v5
         env:
           ACTIONS_RUNNER_DEBUG: true
           DEFAULT_BRANCH: main
