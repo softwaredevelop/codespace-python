@@ -1,0 +1,43 @@
+---
+name: shellcheck
+
+run-name: Shellcheck
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "**/*.sh"
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  skip_duplicate_actions:
+    name: Skip Duplicate Actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fkirc/skip-duplicate-actions@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cancel_others: true
+          concurrent_skipping: never
+
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Call Dagger Function
+        uses: dagger/dagger-for-github@v6
+        with:
+          args: check --source=. stdout
+          module: github.com/softwaredevelop/daggerverse/shellcheck@main
+          verb: call
+          version: "latest"
