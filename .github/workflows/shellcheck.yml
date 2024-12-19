@@ -37,7 +37,7 @@ jobs:
       - name: Call Dagger Function
         uses: dagger/dagger-for-github@v7
         with:
-          args: check --source=. stdout
+          args: check --source=. stderr
           module: github.com/softwaredevelop/daggerverse/shellcheck@main
           verb: call
           version: "latest"
